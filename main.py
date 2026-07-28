@@ -1,20 +1,20 @@
 """
-Habit Bot
-
-Главный файл запуска приложения.
+Точка запуска Habit Bot.
 """
 
 import asyncio
 
-from app.bot import bot, dp
+from app.bot import create_bot, create_dispatcher
+from app.services.user_service import init_users
 
 
-async def main() -> None:
-    """
-    Запуск Telegram-бота.
-    """
+async def main():
 
-    print("🚀 Habit Bot запускается")
+    # Загружаем память пользователей
+    init_users()
+
+    bot = create_bot()
+    dp = create_dispatcher()
 
     await dp.start_polling(bot)
 
